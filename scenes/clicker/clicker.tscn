@@ -1,0 +1,254 @@
+[gd_scene load_steps=2 format=3 uid="uid://cbveeleblmusj"]
+
+[ext_resource type="Script" uid="uid://rvoxbstme1di" path="res://scenes/clicker/clicker.gd" id="1_3yhdj"]
+
+[node name="Clicker" type="Control" node_paths=PackedStringArray("cash_label", "dev_button", "sword_container", "Spawner", "Molder", "Polisher", "Classifier", "Upgrader", "Enchanter", "Appraiser", "SellArea", "SpawnerContainer", "MolderContainer", "PolisherContainer", "ClassifierContainer", "UpgraderContainer", "EnchanterContainer", "AppraiserContainer", "SellAreaContainer", "sell_button")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3yhdj")
+cash_label = NodePath("Cash_Value")
+dev_button = NodePath("Dev_Button")
+sword_container = NodePath("SwordContainer")
+Spawner = NodePath("SwordContainer/Spawner/Station1")
+Molder = NodePath("SwordContainer/Molder/Station2")
+Polisher = NodePath("SwordContainer/Polisher/Station3")
+Classifier = NodePath("SwordContainer/Classifier/Station3")
+Upgrader = NodePath("SwordContainer/Upgrader/Station1")
+Enchanter = NodePath("SwordContainer/Enchanter/Station2")
+Appraiser = NodePath("SwordContainer/Appraiser/Station3")
+SellArea = NodePath("SwordContainer/SellArea/Station3")
+SpawnerContainer = NodePath("SwordContainer/Spawner")
+MolderContainer = NodePath("SwordContainer/Molder")
+PolisherContainer = NodePath("SwordContainer/Polisher")
+ClassifierContainer = NodePath("SwordContainer/Classifier")
+UpgraderContainer = NodePath("SwordContainer/Upgrader")
+EnchanterContainer = NodePath("SwordContainer/Enchanter")
+AppraiserContainer = NodePath("SwordContainer/Appraiser")
+SellAreaContainer = NodePath("SwordContainer/SellArea")
+sell_button = NodePath("SwordContainer/SellArea/Sell_Button")
+
+[node name="Cash_Value" type="Label" parent="."]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_type_variation = &"HeaderLarge"
+text = "Cash: <value>"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Dev_Button" type="Button" parent="."]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -8.0
+offset_top = -8.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="SwordContainer" type="Node" parent="."]
+
+[node name="Spawner" type="Node" parent="SwordContainer"]
+
+[node name="Station1" type="Panel" parent="SwordContainer/Spawner"]
+anchors_preset = -1
+anchor_left = 0.0868056
+anchor_top = 0.225308
+anchor_right = 0.199653
+anchor_bottom = 0.45679
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="SwordContainer/Spawner"]
+anchors_preset = -1
+anchor_left = 0.0868056
+anchor_top = 0.183642
+anchor_right = 0.199653
+anchor_bottom = 0.220679
+text = "Spawner"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Create_Sword_Button" type="Button" parent="SwordContainer/Spawner"]
+anchors_preset = -1
+anchor_left = 0.0868056
+anchor_top = 0.464506
+anchor_right = 0.199653
+anchor_bottom = 0.512345
+grow_horizontal = 2
+grow_vertical = 2
+text = "Create A Sword
+"
+metadata/_edit_use_anchors_ = true
+
+[node name="Molder" type="Node" parent="SwordContainer"]
+
+[node name="Station2" type="Panel" parent="SwordContainer/Molder"]
+anchors_preset = -1
+anchor_left = 0.337674
+anchor_top = 0.225308
+anchor_right = 0.450521
+anchor_bottom = 0.45679
+metadata/_edit_use_anchors_ = true
+
+[node name="Label3" type="Label" parent="SwordContainer/Molder"]
+anchors_preset = -1
+anchor_left = 0.337674
+anchor_top = 0.183642
+anchor_right = 0.450521
+anchor_bottom = 0.220679
+text = "Molder"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Polisher" type="Node" parent="SwordContainer"]
+
+[node name="Station3" type="Panel" parent="SwordContainer/Polisher"]
+anchors_preset = -1
+anchor_left = 0.582465
+anchor_top = 0.225308
+anchor_right = 0.695312
+anchor_bottom = 0.45679
+metadata/_edit_use_anchors_ = true
+
+[node name="Label4" type="Label" parent="SwordContainer/Polisher"]
+anchors_preset = -1
+anchor_left = 0.582465
+anchor_top = 0.183642
+anchor_right = 0.695312
+anchor_bottom = 0.220679
+text = "Polisher"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Classifier" type="Node" parent="SwordContainer"]
+
+[node name="Station3" type="Panel" parent="SwordContainer/Classifier"]
+anchors_preset = -1
+anchor_left = 0.814236
+anchor_top = 0.225308
+anchor_right = 0.927083
+anchor_bottom = 0.45679
+metadata/_edit_use_anchors_ = true
+
+[node name="Label2" type="Label" parent="SwordContainer/Classifier"]
+anchors_preset = -1
+anchor_left = 0.814236
+anchor_top = 0.183642
+anchor_right = 0.927083
+anchor_bottom = 0.220679
+text = "Classifier"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Upgrader" type="Node" parent="SwordContainer"]
+
+[node name="Station1" type="Panel" parent="SwordContainer/Upgrader"]
+anchors_preset = -1
+anchor_left = 0.0868056
+anchor_top = 0.694444
+anchor_right = 0.199653
+anchor_bottom = 0.925926
+offset_left = -4.57764e-05
+offset_top = -4.99976
+offset_right = -4.57764e-05
+offset_bottom = -4.99976
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="SwordContainer/Upgrader"]
+anchors_preset = -1
+anchor_left = 0.0868056
+anchor_top = 0.645062
+anchor_right = 0.199653
+anchor_bottom = 0.682099
+text = "Upgrader"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Enchanter" type="Node" parent="SwordContainer"]
+
+[node name="Station2" type="Panel" parent="SwordContainer/Enchanter"]
+anchors_preset = -1
+anchor_left = 0.337674
+anchor_top = 0.686728
+anchor_right = 0.450521
+anchor_bottom = 0.91821
+metadata/_edit_use_anchors_ = true
+
+[node name="Label3" type="Label" parent="SwordContainer/Enchanter"]
+anchors_preset = -1
+anchor_left = 0.337674
+anchor_top = 0.645062
+anchor_right = 0.450521
+anchor_bottom = 0.682099
+text = "Enchanter"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Appraiser" type="Node" parent="SwordContainer"]
+
+[node name="Station3" type="Panel" parent="SwordContainer/Appraiser"]
+anchors_preset = -1
+anchor_left = 0.582465
+anchor_top = 0.686728
+anchor_right = 0.695312
+anchor_bottom = 0.91821
+metadata/_edit_use_anchors_ = true
+
+[node name="Label4" type="Label" parent="SwordContainer/Appraiser"]
+anchors_preset = -1
+anchor_left = 0.582465
+anchor_top = 0.645062
+anchor_right = 0.695312
+anchor_bottom = 0.682099
+text = "Appraiser"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="SellArea" type="Node" parent="SwordContainer"]
+
+[node name="Station3" type="Panel" parent="SwordContainer/SellArea"]
+anchors_preset = -1
+anchor_left = 0.814236
+anchor_top = 0.686728
+anchor_right = 0.927083
+anchor_bottom = 0.91821
+metadata/_edit_use_anchors_ = true
+
+[node name="Sell_Button" type="Button" parent="SwordContainer/SellArea"]
+offset_left = 938.0
+offset_top = 600.0
+offset_right = 998.0
+offset_bottom = 631.0
+text = "Sell"
+
+[node name="Bank_Button" type="Button" parent="SwordContainer/SellArea"]
+offset_left = 1008.0
+offset_top = 600.0
+offset_right = 1068.0
+offset_bottom = 631.0
+text = "Bank"
+
+[node name="Label2" type="Label" parent="SwordContainer/SellArea"]
+anchors_preset = -1
+anchor_left = 0.814236
+anchor_top = 0.645062
+anchor_right = 0.927083
+anchor_bottom = 0.682099
+text = "Sell Area"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="Dev_Button" to="." method="_on_dev_button_pressed"]
+[connection signal="pressed" from="SwordContainer/Spawner/Create_Sword_Button" to="." method="_on_create_sword_button_pressed"]
+[connection signal="pressed" from="SwordContainer/SellArea/Sell_Button" to="." method="_on_sell_button_pressed"]
+[connection signal="pressed" from="SwordContainer/SellArea/Bank_Button" to="." method="_on_sell_button_pressed"]
