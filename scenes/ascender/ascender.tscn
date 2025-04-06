@@ -1,0 +1,167 @@
+[gd_scene load_steps=6 format=3 uid="uid://d1k4cxe6ycavu"]
+
+[ext_resource type="Script" uid="uid://mw5ndnfsqtun" path="res://scenes/ascender/ascender.gd" id="1_invdi"]
+[ext_resource type="Script" uid="uid://dbwpx1qq1r3yv" path="res://scenes/ascender/sword_creation_button.gd" id="2_invdi"]
+[ext_resource type="Script" uid="uid://brppiwganu6ru" path="res://scenes/ascender/bank_button.gd" id="2_seq78"]
+
+[sub_resource type="GDScript" id="GDScript_7l5xg"]
+script/source = "extends Button
+
+func _on_pressed() -> void:
+	get_tree().change_scene_to_file(\"res://scenes/upgrades/upgrades.tscn\")
+"
+
+[sub_resource type="LabelSettings" id="LabelSettings_seq78"]
+font_size = 15
+
+[node name="Ascender" type="Control" node_paths=PackedStringArray("cash_label", "container", "sword_holder", "raritie_label", "stop_upgrade", "bank", "upgrade_mold", "upgrade_polish")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_invdi")
+cash_label = NodePath("Cash_Value")
+container = NodePath("Ascender")
+sword_holder = NodePath("Ascender/SwordHolder")
+raritie_label = NodePath("Ascender/Label")
+stop_upgrade = NodePath("Ascender/StopUpgrade_Button")
+bank = NodePath("Ascender/Bank_Button")
+upgrade_mold = NodePath("Ascender/UpgradeMold_Button")
+upgrade_polish = NodePath("Ascender/UpgradePolish_Button")
+
+[node name="Cash_Value" type="Label" parent="."]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_type_variation = &"HeaderLarge"
+text = "Cash: <value>"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Upgrades_Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.199653
+anchor_top = -0.0123457
+anchor_right = 0.337674
+anchor_bottom = 0.0740741
+text = "Upgrades"
+script = SubResource("GDScript_7l5xg")
+
+[node name="Bank_Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0277778
+anchor_top = -0.0123457
+anchor_right = 0.165799
+anchor_bottom = 0.0740741
+text = "Bank"
+script = ExtResource("2_seq78")
+
+[node name="SwordCreation_Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.695313
+anchor_top = -0.0123457
+anchor_right = 0.814236
+anchor_bottom = 0.0740741
+offset_right = 22.0007
+offset_bottom = -3.05176e-05
+text = "Sword Creation"
+script = ExtResource("2_invdi")
+
+[node name="Ascender" type="Node" parent="."]
+
+[node name="SwordHolder" type="Panel" parent="Ascender"]
+anchors_preset = -1
+anchor_left = 0.438368
+anchor_top = 0.393518
+anchor_right = 0.551215
+anchor_bottom = 0.625
+metadata/_edit_use_anchors_ = true
+
+[node name="Ascender_Label" type="Label" parent="Ascender"]
+anchors_preset = -1
+anchor_left = 0.438368
+anchor_top = 0.351852
+anchor_right = 0.551215
+anchor_bottom = 0.388889
+text = "Ascender"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="UpgradeMold_Button" type="Button" parent="Ascender"]
+anchors_preset = -1
+anchor_left = 0.373264
+anchor_top = 0.705247
+anchor_right = 0.486111
+anchor_bottom = 0.753087
+offset_bottom = 3.05176e-05
+grow_horizontal = 2
+grow_vertical = 2
+text = "Upgrade Mold
+"
+metadata/_edit_use_anchors_ = true
+
+[node name="UpgradePolish_Button" type="Button" parent="Ascender"]
+anchors_preset = -1
+anchor_left = 0.503472
+anchor_top = 0.705247
+anchor_right = 0.616319
+anchor_bottom = 0.753087
+offset_bottom = 3.05176e-05
+grow_horizontal = 2
+grow_vertical = 2
+text = "Upgrade Polish
+"
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="Ascender"]
+anchors_preset = -1
+anchor_left = 0.373264
+anchor_top = 0.197531
+anchor_right = 0.616319
+anchor_bottom = 0.282407
+text = "wad"
+label_settings = SubResource("LabelSettings_seq78")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="StopUpgrade_Button" type="Button" parent="Ascender"]
+visible = false
+anchors_preset = -1
+anchor_left = 0.438368
+anchor_top = 0.641975
+anchor_right = 0.551215
+anchor_bottom = 0.689815
+offset_top = 3.05176e-05
+grow_horizontal = 2
+grow_vertical = 2
+text = "Stop Upgrading"
+metadata/_edit_use_anchors_ = true
+
+[node name="Bank_Button" type="Button" parent="Ascender"]
+anchors_preset = -1
+anchor_left = 0.438368
+anchor_top = 0.641975
+anchor_right = 0.551215
+anchor_bottom = 0.689815
+offset_top = 3.05176e-05
+grow_horizontal = 2
+grow_vertical = 2
+text = "Send To Bank"
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="Upgrades_Button" to="Upgrades_Button" method="_on_pressed"]
+[connection signal="pressed" from="Bank_Button" to="Bank_Button" method="_on_pressed"]
+[connection signal="pressed" from="SwordCreation_Button" to="SwordCreation_Button" method="_on_pressed"]
+[connection signal="pressed" from="Ascender/UpgradeMold_Button" to="." method="_on_upgradeMold_button_pressed"]
+[connection signal="pressed" from="Ascender/UpgradePolish_Button" to="." method="_on_upgradePolish_button_pressed"]
+[connection signal="pressed" from="Ascender/StopUpgrade_Button" to="." method="_on_stop_upgrade_button_pressed"]
+[connection signal="pressed" from="Ascender/Bank_Button" to="." method="_on_bank_button_pressed"]

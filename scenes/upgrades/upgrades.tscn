@@ -1,0 +1,330 @@
+[gd_scene load_steps=5 format=3 uid="uid://vi1s44upxaaa"]
+
+[ext_resource type="Script" uid="uid://y44776vwclkb" path="res://scenes/upgrades/upgrades.gd" id="1_m80n7"]
+[ext_resource type="Script" uid="uid://co1svuyjmn7ho" path="res://scenes/upgrades/bank_button.gd" id="2_pbmkv"]
+[ext_resource type="Script" uid="uid://x2pri6dtmwtb" path="res://scenes/upgrades/ascender_button.gd" id="3_pbmkv"]
+
+[sub_resource type="GDScript" id="GDScript_7l5xg"]
+script/source = "extends Button
+
+func _on_pressed() -> void:
+	get_tree().change_scene_to_file(\"res://scenes/clicker/clicker.tscn\")
+"
+
+[node name="Upgrades" type="Control" node_paths=PackedStringArray("cash_label", "MolderContainer", "PolisherContainer", "ClassifierContainer", "UpgraderContainer", "EnchanterContainer", "AppraiserContainer")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_m80n7")
+cash_label = NodePath("Cash_Value")
+MolderContainer = NodePath("SwordContainer/Molder")
+PolisherContainer = NodePath("SwordContainer/Polisher")
+ClassifierContainer = NodePath("SwordContainer/Classifier")
+UpgraderContainer = NodePath("SwordContainer/Upgrader")
+EnchanterContainer = NodePath("SwordContainer/Enchanter")
+AppraiserContainer = NodePath("SwordContainer/Appraiser")
+
+[node name="Cash_Value" type="Label" parent="."]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_type_variation = &"HeaderLarge"
+text = "Cash: <value>"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SwordCreation_Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.199653
+anchor_top = -0.0123457
+anchor_right = 0.337674
+anchor_bottom = 0.0740741
+text = "Sword Creation"
+script = SubResource("GDScript_7l5xg")
+
+[node name="Bank_Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0277778
+anchor_top = -0.0123457
+anchor_right = 0.165799
+anchor_bottom = 0.0740741
+text = "Bank"
+script = ExtResource("2_pbmkv")
+
+[node name="Ascender_Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.695313
+anchor_top = -0.0123457
+anchor_right = 0.814236
+anchor_bottom = 0.0740741
+offset_right = 22.0007
+offset_bottom = -3.05176e-05
+text = "Ascender"
+script = ExtResource("3_pbmkv")
+
+[node name="SwordContainer" type="Node" parent="."]
+
+[node name="Molder" type="Node" parent="SwordContainer"]
+
+[node name="Station1" type="Panel" parent="SwordContainer/Molder"]
+modulate = Color(1, 1, 1, 0.505882)
+anchors_preset = -1
+anchor_left = 0.0277778
+anchor_top = 0.200617
+anchor_right = 0.277778
+anchor_bottom = 0.432098
+offset_left = 32.0
+offset_right = 32.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="SwordContainer/Molder"]
+anchors_preset = -1
+anchor_left = 0.0347222
+anchor_top = 0.183642
+anchor_right = 0.104167
+anchor_bottom = 0.220679
+offset_left = 32.0
+offset_right = 32.0
+text = "Molder"
+metadata/_edit_use_anchors_ = true
+
+[node name="Unlock_Button" type="Button" parent="SwordContainer/Molder"]
+anchors_preset = -1
+anchor_left = 0.0416667
+anchor_top = 0.233025
+anchor_right = 0.159722
+anchor_bottom = 0.280864
+offset_left = 32.0
+offset_right = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Unlock - 50"
+metadata/_edit_use_anchors_ = true
+metadata/price = -50
+
+[node name="Polisher" type="Node" parent="SwordContainer"]
+
+[node name="Station1" type="Panel" parent="SwordContainer/Polisher"]
+modulate = Color(1, 1, 1, 0.505882)
+anchors_preset = -1
+anchor_left = 0.0277778
+anchor_top = 0.200617
+anchor_right = 0.277778
+anchor_bottom = 0.432098
+offset_left = 400.0
+offset_right = 400.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="SwordContainer/Polisher"]
+anchors_preset = -1
+anchor_left = 0.0347222
+anchor_top = 0.183642
+anchor_right = 0.104167
+anchor_bottom = 0.220679
+offset_left = 400.0
+offset_right = 400.0
+text = "Polisher"
+metadata/_edit_use_anchors_ = true
+
+[node name="Unlock_Button" type="Button" parent="SwordContainer/Polisher"]
+anchors_preset = -1
+anchor_left = 0.0416667
+anchor_top = 0.233025
+anchor_right = 0.159722
+anchor_bottom = 0.280864
+offset_left = 416.0
+offset_right = 416.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Unlock - 150"
+metadata/_edit_use_anchors_ = true
+metadata/price = -150
+
+[node name="Classifier" type="Node" parent="SwordContainer"]
+
+[node name="Station1" type="Panel" parent="SwordContainer/Classifier"]
+modulate = Color(1, 1, 1, 0.505882)
+anchors_preset = -1
+anchor_left = 0.0277778
+anchor_top = 0.200617
+anchor_right = 0.277778
+anchor_bottom = 0.432098
+offset_left = 769.0
+offset_right = 769.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="SwordContainer/Classifier"]
+anchors_preset = -1
+anchor_left = 0.0347222
+anchor_top = 0.183642
+anchor_right = 0.104167
+anchor_bottom = 0.220679
+offset_left = 769.0
+offset_right = 769.0
+text = "Classifier"
+metadata/_edit_use_anchors_ = true
+
+[node name="Unlock_Button" type="Button" parent="SwordContainer/Classifier"]
+anchors_preset = -1
+anchor_left = 0.0416667
+anchor_top = 0.233025
+anchor_right = 0.159722
+anchor_bottom = 0.280864
+offset_left = 769.0
+offset_right = 769.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Unlock - 300"
+metadata/_edit_use_anchors_ = true
+metadata/price = -300
+
+[node name="Upgrader" type="Node" parent="SwordContainer"]
+
+[node name="Station2" type="Panel" parent="SwordContainer/Upgrader"]
+modulate = Color(1, 1, 1, 0.505882)
+anchors_preset = -1
+anchor_left = 0.0277778
+anchor_top = 0.200617
+anchor_right = 0.270833
+anchor_bottom = 0.432098
+offset_left = 32.0
+offset_top = 265.0
+offset_right = 32.0
+offset_bottom = 265.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Label2" type="Label" parent="SwordContainer/Upgrader"]
+anchors_preset = -1
+anchor_left = 0.0347222
+anchor_top = 0.183642
+anchor_right = 0.104167
+anchor_bottom = 0.220679
+offset_left = 32.0
+offset_top = 265.0
+offset_right = 32.0
+offset_bottom = 265.0
+text = "Upgrader"
+metadata/_edit_use_anchors_ = true
+
+[node name="Unlock_Button" type="Button" parent="SwordContainer/Upgrader"]
+anchors_preset = -1
+anchor_left = 0.0416667
+anchor_top = 0.233025
+anchor_right = 0.159722
+anchor_bottom = 0.280864
+offset_left = 32.0
+offset_top = 265.0
+offset_right = 32.0
+offset_bottom = 265.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Unlock - 600"
+metadata/_edit_use_anchors_ = true
+metadata/price = -600
+
+[node name="Enchanter" type="Node" parent="SwordContainer"]
+
+[node name="Station1" type="Panel" parent="SwordContainer/Enchanter"]
+modulate = Color(1, 1, 1, 0.505882)
+anchors_preset = -1
+anchor_left = 0.0277778
+anchor_top = 0.200617
+anchor_right = 0.277778
+anchor_bottom = 0.432098
+offset_left = 400.0
+offset_top = 265.0
+offset_right = 400.0
+offset_bottom = 265.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="SwordContainer/Enchanter"]
+anchors_preset = -1
+anchor_left = 0.0347222
+anchor_top = 0.183642
+anchor_right = 0.104167
+anchor_bottom = 0.220679
+offset_left = 400.0
+offset_top = 265.0
+offset_right = 400.0
+offset_bottom = 265.0
+text = "Enchanter"
+metadata/_edit_use_anchors_ = true
+
+[node name="Unlock_Button" type="Button" parent="SwordContainer/Enchanter"]
+anchors_preset = -1
+anchor_left = 0.0416667
+anchor_top = 0.233025
+anchor_right = 0.159722
+anchor_bottom = 0.280864
+offset_left = 400.0
+offset_top = 265.0
+offset_right = 400.0
+offset_bottom = 265.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Unlock - 1000"
+metadata/_edit_use_anchors_ = true
+metadata/price = -1000
+
+[node name="Appraiser" type="Node" parent="SwordContainer"]
+
+[node name="Station1" type="Panel" parent="SwordContainer/Appraiser"]
+modulate = Color(1, 1, 1, 0.505882)
+anchors_preset = -1
+anchor_left = 0.0277778
+anchor_top = 0.200617
+anchor_right = 0.27691
+anchor_bottom = 0.432098
+offset_left = 769.0
+offset_top = 265.0
+offset_right = 769.0
+offset_bottom = 265.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="SwordContainer/Appraiser"]
+anchors_preset = -1
+anchor_left = 0.0347222
+anchor_top = 0.183642
+anchor_right = 0.104167
+anchor_bottom = 0.220679
+offset_left = 769.0
+offset_top = 265.0
+offset_right = 769.0
+offset_bottom = 265.0
+text = "Appraiser"
+metadata/_edit_use_anchors_ = true
+
+[node name="Unlock_Button" type="Button" parent="SwordContainer/Appraiser"]
+anchors_preset = -1
+anchor_left = 0.0416667
+anchor_top = 0.233025
+anchor_right = 0.159722
+anchor_bottom = 0.280864
+offset_left = 769.0
+offset_top = 265.0
+offset_right = 769.0
+offset_bottom = 265.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Unlock - 2500"
+metadata/_edit_use_anchors_ = true
+metadata/price = -2500
+
+[connection signal="pressed" from="SwordCreation_Button" to="SwordCreation_Button" method="_on_pressed"]
+[connection signal="pressed" from="Bank_Button" to="Bank_Button" method="_on_pressed"]
+[connection signal="pressed" from="Ascender_Button" to="Ascender_Button" method="_on_pressed"]
+[connection signal="pressed" from="SwordContainer/Molder/Unlock_Button" to="." method="_on_unlock_button_pressed"]
+[connection signal="pressed" from="SwordContainer/Polisher/Unlock_Button" to="." method="_on_unlock_button_pressed"]
+[connection signal="pressed" from="SwordContainer/Classifier/Unlock_Button" to="." method="_on_unlock_button_pressed"]
+[connection signal="pressed" from="SwordContainer/Upgrader/Unlock_Button" to="." method="_on_unlock_button_pressed"]
+[connection signal="pressed" from="SwordContainer/Enchanter/Unlock_Button" to="." method="_on_unlock_button_pressed"]
+[connection signal="pressed" from="SwordContainer/Appraiser/Unlock_Button" to="." method="_on_unlock_button_pressed"]

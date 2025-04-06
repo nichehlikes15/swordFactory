@@ -14,3 +14,9 @@ config/name="sword factory"
 run/main_scene="res://scenes/clicker/clicker.tscn"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
+
+[file_customization]
+
+folder_colors={
+"res://scenes/clicker/": "yellow"
+}

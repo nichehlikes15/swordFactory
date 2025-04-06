@@ -1,7 +1,6 @@
 class_name Clicker
 extends Control
 
-var cash : int = 0
 var is_sword_moving : bool = false  
 
 @export var cash_label : Label
@@ -28,18 +27,67 @@ var is_sword_moving : bool = false
 
 @export var sell_button : Button
 
-var rarities := {
-	"Common": {"chance": 50, "price": 50},
-	"Rare": {"chance": 30, "price": 100},
-	"Gold": {"chance": 20, "price": 170},
-	"Epic": {"chance": 15, "price": 250},
-	"Diamond": {"chance": 5, "price": 500}
-}
+const rarities = preload("uid://b4sjsweht8pq1")
+var rarities_instance = rarities.new()
+
+var save_manager = preload("uid://cyeqeyfigsnwc").new()
 
 var stations := {}
 var occupied_stations := {}
 
+var molder_locked := true
+var polisher_locked := true
+var classifier_locked := true
+var upgrader_locked := true
+var enchanter_locked := true
+var appraiser_locked := true
+
 func _ready() -> void:
+	var unlocked_stations = save_manager.get_value("unlocked_stations")
+	
+	if unlocked_stations:
+		molder_locked = not unlocked_stations.get("Molder", false)
+		polisher_locked = not unlocked_stations.get("Polisher", false)
+		classifier_locked = not unlocked_stations.get("Classifier", false)
+		upgrader_locked = not unlocked_stations.get("Upgrader", false)
+		enchanter_locked = not unlocked_stations.get("Enchanter", false)
+		appraiser_locked = not unlocked_stations.get("Appraiser", false)
+
+	# 🔒 Hide TextureRect child for each unlocked station
+	if not molder_locked:
+		var texture = Molder.get_child(0)
+		if texture is TextureRect:
+			texture.hide()
+
+	if not polisher_locked:
+		var texture = Polisher.get_child(0)
+		if texture is TextureRect:
+			texture.hide()
+
+	if not classifier_locked:
+		var texture = Classifier.get_child(0)
+		if texture is TextureRect:
+			texture.hide()
+
+	if not upgrader_locked:
+		var texture = Upgrader.get_child(0)
+		if texture is TextureRect:
+			texture.hide()
+
+	if not enchanter_locked:
+		var texture = Enchanter.get_child(0)
+		if texture is TextureRect:
+			texture.hide()
+
+	if not appraiser_locked:
+		var texture = Appraiser.get_child(0)
+		if texture is TextureRect:
+			texture.hide()
+			
+	var save_data = save_manager.load_game()
+	if save_data:
+		load_saved_data(save_data)
+		
 	stations = {
 		"Spawner": Spawner,
 		"Molder": Molder,
@@ -63,15 +111,27 @@ func _ready() -> void:
 	}
 	update_cash_value_label()
 
+
+func load_saved_data(save_data: Dictionary):
+	if "occupied_stations" in save_data:
+		occupied_stations = save_data["occupied_stations"]
+
+	update_cash_value_label()
+	print("Game loaded!")
+
+
+
 func update_cash_value_label() -> void:
-	cash_label.text = "Cash : %s" % cash
+	cash_label.text = "Cash : £%s" % save_manager.get_value("cash")
 
 func create_cash(amount: int = 1) -> void:
-	cash += amount
+	save_manager.set_value("cash", save_manager.get_value("cash") + amount)
 	update_cash_value_label()
 
 func _on_dev_button_pressed() -> void:
-	create_cash(10000000)
+	DirAccess.open("user://").file_exists("data.json") and DirAccess.open("user://").remove("data.json")
+	#rarities_instance.get_rarity_loop()
+	#create_cash(10000000)
 
 func create_sword() -> void:
 	if is_sword_moving or occupied_stations["Spawner"]:
@@ -104,7 +164,7 @@ func create_sword() -> void:
 
 	# Rarity Label
 	var new_label := Label.new()
-	new_label.text = "Unknown"
+	new_label.text = "£10"
 	new_label.add_theme_font_size_override("font_size", 16)
 	new_label.add_theme_color_override("font_color", Color.WHITE)
 	new_label.size_flags_horizontal = Control.SIZE_FILL  
@@ -113,6 +173,9 @@ func create_sword() -> void:
 	new_label.size = Vector2(130, 30)  
 	new_label.position = new_button.position + Vector2(0, 115)  
 	container.add_child(new_label)
+	
+	var sword_cost: int = 10
+	new_panel.set_meta("value", 10)
 
 	# Connect button click
 	new_button.pressed.connect(_on_new_button_pressed.bind(container, new_button, new_label, new_panel))
@@ -127,12 +190,46 @@ func _on_new_button_pressed(node: Node, button: TextureButton, label: Label, pan
 	is_sword_moving = true  
 
 	var current_station = get_sword_station(button.position)
-	var next_station = get_next_available_station(current_station)
+	print(current_station)
+
+	var station_order = ["Molder", "Polisher", "Classifier", "Upgrader", "Enchanter", "Appraiser", "SellArea"]
+	var station_locks = {
+		"Molder": molder_locked,
+		"Polisher": polisher_locked,
+		"Classifier": classifier_locked,
+		"Upgrader": upgrader_locked,
+		"Enchanter": enchanter_locked,
+		"Appraiser": appraiser_locked,
+		"SellArea": false
+	}
+
+	var start_index = station_order.find(current_station)
+	if start_index == -1:
+		start_index = -1 
+
+	var next_station := ""
+	for i in range(start_index + 1, station_order.size()):
+		var station = station_order[i]
+		if not station_locks[station] and not occupied_stations[station]:
+			next_station = station
+			break
 
 	if next_station == "":
-		print("false thing")
+		print("No available station found.")
 		is_sword_moving = false
 		return
+
+	var current_station_container : Node = get_station_container(current_station)
+	var raritity_label : Label = null
+	
+	if current_station_container:
+		for child in current_station_container.get_children():
+			if child is Label and child.name == "Raritiy":
+				raritity_label = child
+				break
+	
+	if raritity_label:
+		raritity_label.text = ""
 
 	var new_position = stations[next_station].global_position
 	var tween := create_tween()
@@ -141,40 +238,97 @@ func _on_new_button_pressed(node: Node, button: TextureButton, label: Label, pan
 	tween.parallel().tween_property(panel, "position", new_position, 0.5)  
 	tween.finished.connect(func(): _on_sword_moved(node, button, label, panel, current_station, next_station))
 
+
+func get_station_container(station_name: String) -> Node:
+	if station_name == "Molder":
+		return MolderContainer
+	elif station_name == "Polisher":
+		return PolisherContainer
+	elif station_name == "Classifier":
+		return ClassifierContainer
+	elif station_name == "Upgrader":
+		return UpgraderContainer
+	elif station_name == "Enchanter":
+		return EnchanterContainer
+	elif station_name == "Appraiser":
+		return AppraiserContainer
+	elif station_name == "SellArea":
+		return SellAreaContainer
+	return null
+	
+
 func _on_sword_moved(node: Node, button: TextureButton, label: Label, panel: Panel, old_station: String, new_station: String) -> void:
 	if old_station != "":
 		occupied_stations[old_station] = false
+	var raritie = ""
 
 	if new_station == "Molder":
-		occupied_stations[new_station] = true
-		label.text = get_random_rarity()
+		occupied_stations[new_station] = true 
+		
+		raritie = rarities_instance.get_rarity(rarities_instance.molderRarities)
+		print("This sword was worth: ", panel.get_meta("value"))
+		var new_value = panel.get_meta("value") * rarities_instance.molderRarities[raritie]["value_multiplier"]
+		panel.set_meta("value", new_value)
+		label.text = "£" + str(panel.get_meta("value"))
+		panel.set_meta("molderRarities", raritie)
+		print("This sword is now worth: ", panel.get_meta("value"))
+		
+		var raritity_label : Label = null
+		for child in MolderContainer.get_children():
+			if child is Label and child.name == "Raritiy":
+				raritity_label = child
+				break
+		if raritity_label:
+			raritity_label.text = raritie + " [RNG: 1/" + str(rarities_instance.molderRarities[raritie]["value_multiplier"]) + "]"
+		else:
+			print("no find")
+			
 		node.get_parent().remove_child(node)
 		MolderContainer.add_child(node)
 		
 	elif new_station == "Polisher":
 		occupied_stations[new_station] = true
+		
+		raritie = rarities_instance.get_rarity(rarities_instance.polisherRarities)
+		print("This sword was worth: ", panel.get_meta("value"))
+		var new_value = panel.get_meta("value") * rarities_instance.polisherRarities[raritie]["value_multiplier"]
+		panel.set_meta("value", new_value)
+		label.text = "£" + str(panel.get_meta("value"))
+		panel.set_meta("polisherRarities", raritie)
+		print("This sword is now worth: ", panel.get_meta("value"))
+		
+		var raritity_label : Label = null
+		for child in PolisherContainer.get_children():
+			if child is Label and child.name == "Raritiy":
+				raritity_label = child
+				break
+		if raritity_label:
+			raritity_label.text = raritie + " [RNG: 1/" + str(rarities_instance.polisherRarities[raritie]["value_multiplier"]) + "]"
+		else:
+			print("no find")
+		
 		node.get_parent().remove_child(node)
-		SellAreaContainer.add_child(node)
+		PolisherContainer.add_child(node)
 		
 	elif new_station == "Classifier":
 		occupied_stations[new_station] = true
 		node.get_parent().remove_child(node)
-		SellAreaContainer.add_child(node)
+		ClassifierContainer.add_child(node)
 		
 	elif new_station == "Upgrader":
 		occupied_stations[new_station] = true
 		node.get_parent().remove_child(node)
-		SellAreaContainer.add_child(node)
+		UpgraderContainer.add_child(node)
 		
 	elif new_station == "Enchanter":
 		occupied_stations[new_station] = true
 		node.get_parent().remove_child(node)
-		SellAreaContainer.add_child(node)
+		EnchanterContainer.add_child(node)
 		
 	elif new_station == "Appraiser":
 		occupied_stations[new_station] = true
 		node.get_parent().remove_child(node)
-		SellAreaContainer.add_child(node)
+		AppraiserContainer.add_child(node)
 		
 	elif new_station == "SellArea":
 		occupied_stations[new_station] = true
@@ -182,18 +336,9 @@ func _on_sword_moved(node: Node, button: TextureButton, label: Label, panel: Pan
 		SellAreaContainer.add_child(node)
 		
 	else:
-		print("t")
+		push_warning("No correct station found!")
 
 	is_sword_moving = false  
-
-func get_random_rarity() -> String:
-	var roll = randi() % 100  
-	var cumulative = 0
-	for rarity in rarities.keys():
-		cumulative += rarities[rarity]["chance"]
-		if roll < cumulative:
-			return rarity
-	return "Common"  
 
 func get_sword_station(position: Vector2) -> String:
 	print("Checking sword for position:", position)
@@ -202,7 +347,7 @@ func get_sword_station(position: Vector2) -> String:
 		var station = stations[name]
 		
 		if station == null:
-			print("Error: Station", name, "is NULL! Check your scene setup.")
+			push_warning("Error: Station", name, "is NULL! Check your scene setup.")
 			continue  # Skip this iteration if station is null
 
 		print("Comparing with station:", name, "at position", station.global_position)
@@ -240,19 +385,8 @@ func get_next_available_station(current_station: String) -> String:
 		print("Next station: SellArea")
 		return "SellArea"
 	
-	print("No available station found!")
+	push_error("No available station found!")
 	return ""
-
-# Function to sell the sword when the button is pressed
-func sell_sword(button: TextureButton, label: Label, panel: Panel) -> void:
-	var rarity = label.text
-	var sell_price = rarities[rarity]["price"]
-	button.queue_free()  # Remove sword button
-	label.queue_free()   # Remove label
-	panel.queue_free()   # Remove background panel
-	occupied_stations["SellArea"] = false  # Mark station as free
-	create_cash(sell_price)  # Add the price to the cash
-	print("Sold a ", rarity, "sword for $", sell_price, "!")
 
 # Function connected to the sell button press
 func _on_sell_button_pressed() -> void:
@@ -283,7 +417,7 @@ func _on_sell_button_pressed() -> void:
 		# Sell the sword if all components exist
 			if button and label and panel:
 				var rarity = label.text
-				var sell_price = rarities[rarity]["price"]
+				var sell_price = panel.get_meta("value")
 				button.queue_free()  # Remove sword button
 				label.queue_free()   # Remove label
 				panel.queue_free()   # Remove background panel
@@ -298,3 +432,71 @@ func _on_sell_button_pressed() -> void:
 
 func _on_create_sword_button_pressed() -> void:
 	create_sword()
+	
+func check_banked_items():
+	var banked_items = save_manager.get_value("banked_items")
+	if banked_items and banked_items is Dictionary:
+		for slot in banked_items.keys():
+			if banked_items[slot] == null:
+				print("returned banked slot")
+				return slot
+		print("- No banked items found.")
+	else:
+		print("- No banked items found.")
+
+func serialize_node_to_dict(panel: Panel) -> Dictionary:
+	var data = {}
+	for meta_key in panel.get_meta_list():
+		data[meta_key] = panel.get_meta(meta_key)
+	return data
+
+func _on_bank_button_pressed() -> void:
+	var button := get_viewport().gui_get_focus_owner()
+	if button == null:
+		print("No button in focus.")
+		return
+
+	var slot_container := button.get_parent()
+	if slot_container == null:
+		print("Button has no parent (slot container).")
+		return
+
+	# Find the first child of the slot that is just a Node (not Control)
+	var partner_node : Node = null
+	for child in slot_container.get_children():
+		if child != button and child.get_class() == "Node":
+			partner_node = child
+			break
+
+	if partner_node == null:
+		print("No partner node found.")
+		return
+
+	var panel : Panel = null
+	var label : Label = null
+	for partner_child in partner_node.get_children():
+		if partner_child is Panel:
+			panel = partner_child
+		elif partner_child is Label:
+			label = partner_child
+
+	if panel == null:
+		print("No panel found under the partner node.")
+		return
+
+	var slot = check_banked_items()
+	if slot:
+		print(slot)
+		var new_banked = save_manager.get_value("banked_items")
+		var data = serialize_node_to_dict(panel)
+		if data:
+			new_banked[slot] = data
+		else:
+			new_banked[slot] = null
+		save_manager.set_value("banked_items", new_banked)
+		
+		save_manager.set_value("ascender", null)
+		
+		partner_node.queue_free()
+	else:
+		print(slot)

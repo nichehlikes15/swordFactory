@@ -1,27 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://cbveeleblmusj"]
+[gd_scene load_steps=3 format=3 uid="uid://cbveeleblmusj"]
 
 [ext_resource type="Script" uid="uid://rvoxbstme1di" path="res://scenes/clicker/clicker.gd" id="1_3yhdj"]
-[ext_resource type="Texture2D" uid="uid://5ylcvac6bldp" path="res://images/padlock-and-metal-chain-png.webp" id="3_8oacq"]
-
-[sub_resource type="GDScript" id="GDScript_7l5xg"]
-script/source = "extends Button
-
-func _on_pressed() -> void:
-	get_tree().change_scene_to_file(\"res://scenes/upgrades/upgrades.tscn\")"
-
-[sub_resource type="GDScript" id="GDScript_8oacq"]
-script/source = "extends Button
-
-func _on_pressed() -> void:
-	get_tree().change_scene_to_file(\"res://scenes/bank/bank.tscn\")
-"
-
-[sub_resource type="GDScript" id="GDScript_umt6m"]
-script/source = "extends Button
-
-func _on_pressed() -> void:
-	get_tree().change_scene_to_file(\"res://scenes/ascender/ascender.tscn\")
-"
+[ext_resource type="Script" uid="uid://cbg0psyakmelj" path="res://scenes/clicker/upgrades_button.gd" id="2_7l5xg"]
 
 [node name="Clicker" type="Control" node_paths=PackedStringArray("cash_label", "dev_button", "sword_container", "Spawner", "Molder", "Polisher", "Classifier", "Upgrader", "Enchanter", "Appraiser", "SellArea", "SpawnerContainer", "MolderContainer", "PolisherContainer", "ClassifierContainer", "UpgraderContainer", "EnchanterContainer", "AppraiserContainer", "SellAreaContainer", "sell_button")]
 layout_mode = 3
@@ -84,7 +64,7 @@ anchor_top = -0.0123457
 anchor_right = 0.337674
 anchor_bottom = 0.0740741
 text = "Upgrades"
-script = SubResource("GDScript_7l5xg")
+script = ExtResource("2_7l5xg")
 
 [node name="Bank_Button" type="Button" parent="."]
 layout_mode = 0
@@ -93,7 +73,6 @@ anchor_top = -0.0123457
 anchor_right = 0.165799
 anchor_bottom = 0.0740741
 text = "Bank"
-script = SubResource("GDScript_8oacq")
 
 [node name="Ascender_Button" type="Button" parent="."]
 layout_mode = 0
@@ -104,7 +83,6 @@ anchor_bottom = 0.0740741
 offset_right = 22.0007
 offset_bottom = -3.05176e-05
 text = "Ascender"
-script = SubResource("GDScript_umt6m")
 
 [node name="SwordContainer" type="Node" parent="."]
 
@@ -148,17 +126,6 @@ anchor_left = 0.337674
 anchor_top = 0.225308
 anchor_right = 0.450521
 anchor_bottom = 0.45679
-mouse_filter = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="TextureRect" type="TextureRect" parent="SwordContainer/Molder/Station2"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 0.999998
-texture = ExtResource("3_8oacq")
-expand_mode = 1
-flip_h = true
 metadata/_edit_use_anchors_ = true
 
 [node name="Label3" type="Label" parent="SwordContainer/Molder"]
@@ -171,16 +138,6 @@ text = "Molder"
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Raritiy" type="Label" parent="SwordContainer/Molder"]
-anchors_preset = -1
-anchor_left = 0.289931
-anchor_top = 0.464506
-anchor_right = 0.496528
-anchor_bottom = 0.501543
-horizontal_alignment = 1
-vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
-
 [node name="Polisher" type="Node" parent="SwordContainer"]
 
 [node name="Station3" type="Panel" parent="SwordContainer/Polisher"]
@@ -189,16 +146,6 @@ anchor_left = 0.582465
 anchor_top = 0.225308
 anchor_right = 0.695312
 anchor_bottom = 0.45679
-metadata/_edit_use_anchors_ = true
-
-[node name="TextureRect" type="TextureRect" parent="SwordContainer/Polisher/Station3"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 0.999998
-texture = ExtResource("3_8oacq")
-expand_mode = 1
-flip_h = true
 metadata/_edit_use_anchors_ = true
 
 [node name="Label4" type="Label" parent="SwordContainer/Polisher"]
@@ -211,17 +158,6 @@ text = "Polisher"
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Raritiy" type="Label" parent="SwordContainer/Polisher"]
-anchors_preset = -1
-anchor_left = 0.536458
-anchor_top = 0.464506
-anchor_right = 0.743056
-anchor_bottom = 0.501543
-offset_right = 6.10352e-05
-horizontal_alignment = 1
-vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
-
 [node name="Classifier" type="Node" parent="SwordContainer"]
 
 [node name="Station3" type="Panel" parent="SwordContainer/Classifier"]
@@ -230,16 +166,6 @@ anchor_left = 0.814236
 anchor_top = 0.225308
 anchor_right = 0.927083
 anchor_bottom = 0.45679
-metadata/_edit_use_anchors_ = true
-
-[node name="TextureRect" type="TextureRect" parent="SwordContainer/Classifier/Station3"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 0.999998
-texture = ExtResource("3_8oacq")
-expand_mode = 1
-flip_h = true
 metadata/_edit_use_anchors_ = true
 
 [node name="Label2" type="Label" parent="SwordContainer/Classifier"]
@@ -266,16 +192,6 @@ offset_right = -4.57764e-05
 offset_bottom = -4.99976
 metadata/_edit_use_anchors_ = true
 
-[node name="TextureRect" type="TextureRect" parent="SwordContainer/Upgrader/Station1"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 0.999998
-texture = ExtResource("3_8oacq")
-expand_mode = 1
-flip_h = true
-metadata/_edit_use_anchors_ = true
-
 [node name="Label" type="Label" parent="SwordContainer/Upgrader"]
 anchors_preset = -1
 anchor_left = 0.0868056
@@ -296,16 +212,6 @@ anchor_right = 0.450521
 anchor_bottom = 0.91821
 metadata/_edit_use_anchors_ = true
 
-[node name="TextureRect" type="TextureRect" parent="SwordContainer/Enchanter/Station2"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 0.999998
-texture = ExtResource("3_8oacq")
-expand_mode = 1
-flip_h = true
-metadata/_edit_use_anchors_ = true
-
 [node name="Label3" type="Label" parent="SwordContainer/Enchanter"]
 anchors_preset = -1
 anchor_left = 0.337674
@@ -324,16 +230,6 @@ anchor_left = 0.582465
 anchor_top = 0.686728
 anchor_right = 0.695312
 anchor_bottom = 0.91821
-metadata/_edit_use_anchors_ = true
-
-[node name="TextureRect" type="TextureRect" parent="SwordContainer/Appraiser/Station3"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 0.999998
-texture = ExtResource("3_8oacq")
-expand_mode = 1
-flip_h = true
 metadata/_edit_use_anchors_ = true
 
 [node name="Label4" type="Label" parent="SwordContainer/Appraiser"]
@@ -357,22 +253,18 @@ anchor_bottom = 0.91821
 metadata/_edit_use_anchors_ = true
 
 [node name="Sell_Button" type="Button" parent="SwordContainer/SellArea"]
-anchors_preset = -1
-anchor_left = 0.814236
-anchor_top = 0.925926
-anchor_right = 0.866319
-anchor_bottom = 0.973765
+offset_left = 938.0
+offset_top = 600.0
+offset_right = 998.0
+offset_bottom = 631.0
 text = "Sell"
-metadata/_edit_use_anchors_ = true
 
 [node name="Bank_Button" type="Button" parent="SwordContainer/SellArea"]
-anchors_preset = -1
-anchor_left = 0.875
-anchor_top = 0.925926
-anchor_right = 0.927083
-anchor_bottom = 0.973765
+offset_left = 1008.0
+offset_top = 600.0
+offset_right = 1068.0
+offset_bottom = 631.0
 text = "Bank"
-metadata/_edit_use_anchors_ = true
 
 [node name="Label2" type="Label" parent="SwordContainer/SellArea"]
 anchors_preset = -1
@@ -385,9 +277,7 @@ horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [connection signal="pressed" from="Dev_Button" to="." method="_on_dev_button_pressed"]
-[connection signal="pressed" from="Upgrades_Button" to="Upgrades_Button" method="_on_pressed"]
-[connection signal="pressed" from="Bank_Button" to="Bank_Button" method="_on_pressed"]
-[connection signal="pressed" from="Ascender_Button" to="Ascender_Button" method="_on_pressed"]
+[connection signal="pressed" from="Upgrades_Button" to="Upgrades_Button" method="_on_upragde_button_pressed"]
 [connection signal="pressed" from="SwordContainer/Spawner/Create_Sword_Button" to="." method="_on_create_sword_button_pressed"]
 [connection signal="pressed" from="SwordContainer/SellArea/Sell_Button" to="." method="_on_sell_button_pressed"]
-[connection signal="pressed" from="SwordContainer/SellArea/Bank_Button" to="." method="_on_bank_button_pressed"]
+[connection signal="pressed" from="SwordContainer/SellArea/Bank_Button" to="." method="_on_sell_button_pressed"]

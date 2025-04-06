@@ -1,0 +1,384 @@
+[gd_scene load_steps=5 format=3 uid="uid://eyq06uyb0nvu"]
+
+[ext_resource type="Script" uid="uid://dhdvr7dv4irfj" path="res://scenes/bank/bank.gd" id="1_my2pa"]
+[ext_resource type="Script" uid="uid://nittmyf2o3tp" path="res://scenes/bank/ascender_button.gd" id="2_dcgbx"]
+[ext_resource type="Script" uid="uid://bwga5w0i7epti" path="res://scenes/bank/sword_creation_button.gd" id="2_pkxxk"]
+
+[sub_resource type="GDScript" id="GDScript_7l5xg"]
+script/source = "extends Button
+
+func _on_pressed() -> void:
+	get_tree().change_scene_to_file(\"res://scenes/upgrades/upgrades.tscn\")
+"
+
+[node name="Bank" type="Control" node_paths=PackedStringArray("cash_label", "Slot1", "Slot2", "Slot3", "Slot4", "Slot5", "Slot6", "Slot7", "Slot8", "Slot1AscenderButton", "Slot2AscenderButton", "Slot3AscenderButton", "Slot4AscenderButton", "Slot5AscenderButton", "Slot6AscenderButton", "Slot7AscenderButton", "Slot8AscenderButton")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_my2pa")
+cash_label = NodePath("Cash_Value")
+Slot1 = NodePath("SwordContainer/Slot1/Station1")
+Slot2 = NodePath("SwordContainer/Slot2/Station2")
+Slot3 = NodePath("SwordContainer/Slot3/Station3")
+Slot4 = NodePath("SwordContainer/Slot4/Station3")
+Slot5 = NodePath("SwordContainer/Slot5/Station1")
+Slot6 = NodePath("SwordContainer/Slot6/Station2")
+Slot7 = NodePath("SwordContainer/Slot7/Station3")
+Slot8 = NodePath("SwordContainer/Slot8/Station3")
+Slot1AscenderButton = NodePath("SwordContainer/Slot1/Ascender_Button4")
+Slot2AscenderButton = NodePath("SwordContainer/Slot2/Ascender_Button4")
+Slot3AscenderButton = NodePath("SwordContainer/Slot3/Ascender_Button5")
+Slot4AscenderButton = NodePath("SwordContainer/Slot4/Ascender_Button5")
+Slot5AscenderButton = NodePath("SwordContainer/Slot5/Ascender_Button3")
+Slot6AscenderButton = NodePath("SwordContainer/Slot6/Ascender_Button3")
+Slot7AscenderButton = NodePath("SwordContainer/Slot7/Ascender_Button2")
+Slot8AscenderButton = NodePath("SwordContainer/Slot8/Ascender_Button")
+
+[node name="Cash_Value" type="Label" parent="."]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_type_variation = &"HeaderLarge"
+text = "Cash: <value>"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Upgrades_Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.199653
+anchor_top = -0.0123457
+anchor_right = 0.337674
+anchor_bottom = 0.0740741
+text = "Upgrades"
+script = SubResource("GDScript_7l5xg")
+
+[node name="SwordCreation_Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0277778
+anchor_top = -0.0123457
+anchor_right = 0.165799
+anchor_bottom = 0.0740741
+text = "Sword Creation"
+script = ExtResource("2_pkxxk")
+
+[node name="Ascender_Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.695313
+anchor_top = -0.0123457
+anchor_right = 0.814236
+anchor_bottom = 0.0740741
+offset_right = 22.0007
+offset_bottom = -3.05176e-05
+text = "Ascender"
+script = ExtResource("2_dcgbx")
+
+[node name="SwordContainer" type="Node" parent="."]
+
+[node name="Slot1" type="Node" parent="SwordContainer"]
+
+[node name="Station1" type="Panel" parent="SwordContainer/Slot1"]
+anchors_preset = -1
+anchor_left = 0.0868056
+anchor_top = 0.225308
+anchor_right = 0.199653
+anchor_bottom = 0.45679
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="SwordContainer/Slot1"]
+anchors_preset = -1
+anchor_left = 0.0868056
+anchor_top = 0.183642
+anchor_right = 0.199653
+anchor_bottom = 0.220679
+text = "Slot 1"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Sell_Button3" type="Button" parent="SwordContainer/Slot1"]
+offset_left = 100.0
+offset_top = 301.0
+offset_right = 146.0
+offset_bottom = 332.0
+text = "Sell"
+
+[node name="Ascender_Button4" type="Button" parent="SwordContainer/Slot1"]
+offset_left = 150.0
+offset_top = 301.0
+offset_right = 230.0
+offset_bottom = 332.0
+text = "Ascender"
+
+[node name="Slot2" type="Node" parent="SwordContainer"]
+
+[node name="Station2" type="Panel" parent="SwordContainer/Slot2"]
+anchors_preset = -1
+anchor_left = 0.337674
+anchor_top = 0.225308
+anchor_right = 0.450521
+anchor_bottom = 0.45679
+metadata/_edit_use_anchors_ = true
+
+[node name="Label3" type="Label" parent="SwordContainer/Slot2"]
+anchors_preset = -1
+anchor_left = 0.337674
+anchor_top = 0.183642
+anchor_right = 0.450521
+anchor_bottom = 0.220679
+text = "Slot 2"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Sell_Button3" type="Button" parent="SwordContainer/Slot2"]
+offset_left = 389.0
+offset_top = 301.0
+offset_right = 435.0
+offset_bottom = 332.0
+text = "Sell"
+
+[node name="Ascender_Button4" type="Button" parent="SwordContainer/Slot2"]
+offset_left = 439.0
+offset_top = 301.0
+offset_right = 519.0
+offset_bottom = 332.0
+text = "Ascender"
+
+[node name="Slot3" type="Node" parent="SwordContainer"]
+
+[node name="Station3" type="Panel" parent="SwordContainer/Slot3"]
+anchors_preset = -1
+anchor_left = 0.582465
+anchor_top = 0.225308
+anchor_right = 0.695312
+anchor_bottom = 0.45679
+metadata/_edit_use_anchors_ = true
+
+[node name="Label4" type="Label" parent="SwordContainer/Slot3"]
+anchors_preset = -1
+anchor_left = 0.582465
+anchor_top = 0.183642
+anchor_right = 0.695312
+anchor_bottom = 0.220679
+text = "Slot 3"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Sell_Button4" type="Button" parent="SwordContainer/Slot3"]
+offset_left = 671.0
+offset_top = 301.0
+offset_right = 717.0
+offset_bottom = 332.0
+text = "Sell"
+
+[node name="Ascender_Button5" type="Button" parent="SwordContainer/Slot3"]
+offset_left = 721.0
+offset_top = 301.0
+offset_right = 801.0
+offset_bottom = 332.0
+text = "Ascender"
+
+[node name="Slot4" type="Node" parent="SwordContainer"]
+
+[node name="Station3" type="Panel" parent="SwordContainer/Slot4"]
+anchors_preset = -1
+anchor_left = 0.814236
+anchor_top = 0.225308
+anchor_right = 0.927083
+anchor_bottom = 0.45679
+metadata/_edit_use_anchors_ = true
+
+[node name="Label2" type="Label" parent="SwordContainer/Slot4"]
+anchors_preset = -1
+anchor_left = 0.814236
+anchor_top = 0.183642
+anchor_right = 0.927083
+anchor_bottom = 0.220679
+text = "Slot 4"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Sell_Button4" type="Button" parent="SwordContainer/Slot4"]
+offset_left = 938.0
+offset_top = 301.0
+offset_right = 984.0
+offset_bottom = 332.0
+text = "Sell"
+
+[node name="Ascender_Button5" type="Button" parent="SwordContainer/Slot4"]
+offset_left = 988.0
+offset_top = 301.0
+offset_right = 1068.0
+offset_bottom = 332.0
+text = "Ascender"
+
+[node name="Slot5" type="Node" parent="SwordContainer"]
+
+[node name="Station1" type="Panel" parent="SwordContainer/Slot5"]
+anchors_preset = -1
+anchor_left = 0.0868056
+anchor_top = 0.694444
+anchor_right = 0.199653
+anchor_bottom = 0.925926
+offset_left = -4.57764e-05
+offset_top = -4.99976
+offset_right = -4.57764e-05
+offset_bottom = -4.99976
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="SwordContainer/Slot5"]
+anchors_preset = -1
+anchor_left = 0.0868056
+anchor_top = 0.645062
+anchor_right = 0.199653
+anchor_bottom = 0.682099
+text = "Slot 5"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Sell_Button2" type="Button" parent="SwordContainer/Slot5"]
+offset_left = 100.0
+offset_top = 600.0
+offset_right = 146.0
+offset_bottom = 631.0
+text = "Sell"
+
+[node name="Ascender_Button3" type="Button" parent="SwordContainer/Slot5"]
+offset_left = 150.0
+offset_top = 600.0
+offset_right = 230.0
+offset_bottom = 631.0
+text = "Ascender"
+
+[node name="Slot6" type="Node" parent="SwordContainer"]
+
+[node name="Station2" type="Panel" parent="SwordContainer/Slot6"]
+anchors_preset = -1
+anchor_left = 0.337674
+anchor_top = 0.686728
+anchor_right = 0.450521
+anchor_bottom = 0.91821
+metadata/_edit_use_anchors_ = true
+
+[node name="Label3" type="Label" parent="SwordContainer/Slot6"]
+anchors_preset = -1
+anchor_left = 0.337674
+anchor_top = 0.645062
+anchor_right = 0.450521
+anchor_bottom = 0.682099
+text = "Slot 6"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Sell_Button2" type="Button" parent="SwordContainer/Slot6"]
+offset_left = 389.0
+offset_top = 600.0
+offset_right = 435.0
+offset_bottom = 631.0
+text = "Sell"
+
+[node name="Ascender_Button3" type="Button" parent="SwordContainer/Slot6"]
+offset_left = 439.0
+offset_top = 600.0
+offset_right = 519.0
+offset_bottom = 631.0
+text = "Ascender"
+
+[node name="Slot7" type="Node" parent="SwordContainer"]
+
+[node name="Station3" type="Panel" parent="SwordContainer/Slot7"]
+anchors_preset = -1
+anchor_left = 0.582465
+anchor_top = 0.686728
+anchor_right = 0.695312
+anchor_bottom = 0.91821
+metadata/_edit_use_anchors_ = true
+
+[node name="Label4" type="Label" parent="SwordContainer/Slot7"]
+anchors_preset = -1
+anchor_left = 0.582465
+anchor_top = 0.645062
+anchor_right = 0.695312
+anchor_bottom = 0.682099
+text = "Slot 7"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Sell_Button" type="Button" parent="SwordContainer/Slot7"]
+offset_left = 671.0
+offset_top = 600.0
+offset_right = 717.0
+offset_bottom = 631.0
+text = "Sell"
+
+[node name="Ascender_Button2" type="Button" parent="SwordContainer/Slot7"]
+offset_left = 721.0
+offset_top = 600.0
+offset_right = 801.0
+offset_bottom = 631.0
+text = "Ascender"
+
+[node name="Slot8" type="Node" parent="SwordContainer"]
+
+[node name="Station3" type="Panel" parent="SwordContainer/Slot8"]
+anchors_preset = -1
+anchor_left = 0.814236
+anchor_top = 0.686728
+anchor_right = 0.927083
+anchor_bottom = 0.91821
+metadata/_edit_use_anchors_ = true
+
+[node name="Label2" type="Label" parent="SwordContainer/Slot8"]
+anchors_preset = -1
+anchor_left = 0.814236
+anchor_top = 0.645062
+anchor_right = 0.927083
+anchor_bottom = 0.682099
+text = "Slot 8"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Sell_Button" type="Button" parent="SwordContainer/Slot8"]
+anchors_preset = -1
+anchor_left = 0.814236
+anchor_top = 0.925926
+anchor_right = 0.854167
+anchor_bottom = 0.973765
+text = "Sell"
+metadata/_edit_use_anchors_ = true
+
+[node name="Ascender_Button" type="Button" parent="SwordContainer/Slot8"]
+anchors_preset = -1
+anchor_left = 0.857639
+anchor_top = 0.925926
+anchor_right = 0.927083
+anchor_bottom = 0.973765
+text = "Ascender"
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="Upgrades_Button" to="Upgrades_Button" method="_on_pressed"]
+[connection signal="pressed" from="SwordCreation_Button" to="SwordCreation_Button" method="_on_pressed"]
+[connection signal="pressed" from="Ascender_Button" to="Ascender_Button" method="_on_pressed"]
+[connection signal="pressed" from="SwordContainer/Slot1/Sell_Button3" to="." method="_on_sell_button_pressed"]
+[connection signal="pressed" from="SwordContainer/Slot1/Ascender_Button4" to="." method="_on_ascender_button_pressed"]
+[connection signal="pressed" from="SwordContainer/Slot2/Sell_Button3" to="." method="_on_sell_button_pressed"]
+[connection signal="pressed" from="SwordContainer/Slot2/Ascender_Button4" to="." method="_on_ascender_button_pressed"]
+[connection signal="pressed" from="SwordContainer/Slot3/Sell_Button4" to="." method="_on_sell_button_pressed"]
+[connection signal="pressed" from="SwordContainer/Slot3/Ascender_Button5" to="." method="_on_ascender_button_pressed"]
+[connection signal="pressed" from="SwordContainer/Slot4/Sell_Button4" to="." method="_on_sell_button_pressed"]
+[connection signal="pressed" from="SwordContainer/Slot4/Ascender_Button5" to="." method="_on_ascender_button_pressed"]
+[connection signal="pressed" from="SwordContainer/Slot5/Sell_Button2" to="." method="_on_sell_button_pressed"]
+[connection signal="pressed" from="SwordContainer/Slot5/Ascender_Button3" to="." method="_on_ascender_button_pressed"]
+[connection signal="pressed" from="SwordContainer/Slot6/Sell_Button2" to="." method="_on_sell_button_pressed"]
+[connection signal="pressed" from="SwordContainer/Slot6/Ascender_Button3" to="." method="_on_ascender_button_pressed"]
+[connection signal="pressed" from="SwordContainer/Slot7/Sell_Button" to="." method="_on_sell_button_pressed"]
+[connection signal="pressed" from="SwordContainer/Slot7/Ascender_Button2" to="." method="_on_ascender_button_pressed"]
+[connection signal="pressed" from="SwordContainer/Slot8/Sell_Button" to="." method="_on_sell_button_pressed"]
+[connection signal="pressed" from="SwordContainer/Slot8/Ascender_Button" to="." method="_on_ascender_button_pressed"]
